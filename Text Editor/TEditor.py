@@ -7,25 +7,17 @@ import os
 import subprocess
 from pygments import lex
 from pygments.lexers import PythonLexer
-#mode='White'
-#fontsize=config.fontsize
+
 if not path.exists("TEconfig.py"):
   with open("TEconfig.py", "w") as File:
     File.write('#DARK or LIGHT or SEMIDARK\ncolormode="LIGHT"\nfontsize=15')
+      import TEconfig
+      mode= TEconfig.colormode
+      Fsize= TEconfig.fsize
 else:
   import TEconfig
   mode= TEconfig.colormode
   Fsize= TEconfig.fsize
-#with open("TEconfig.txt", "r") as File:
-#  for line in File:
-#    print(line)
-#    if 'color=black' in line:
-#      mode='Black'
-#      print('Darkmode')
-#  for line in File:
-#    if 'color=' not in line:
-#      with open("TEconfig.txt", "w") as File:
-#        File.write('color=white')
 
 if mode=='DARK':
   mode='Black'
@@ -58,16 +50,14 @@ class TextEditor:
 
     def run():
       path=self.title.get()
-      #execfile(python3, str(path))
-      #exec(open("{}".format(path)).read())
-      print(path)
-      #subprocess.call(['{}'.format(str(path))])
+      print(f"Running {path}")
       os.startfile(path)
 
     def compiler():
       from subprocess import call
       path=self.title.get()
       call(['pyinstaller', '{}'.format(path)], shell=True)
+      
     # Creating Titlebar
     self.titlebar = Label(self.root,textvariable=self.title,font=("times new roman",15,"bold"),bd=2,relief=GROOVE)
     # Packing Titlebar to root window
